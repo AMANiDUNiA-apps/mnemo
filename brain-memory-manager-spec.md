@@ -194,13 +194,13 @@ brain-memory/
 
 ---
 
-## 7. Tools & Services Matrix (status: tools 1 & 2 finalized)
+## 7. Tools & Services Matrix (status: tools 1 & 2 clarified)
 
 | Tool | Layer | Input | Output | Trigger | Status |
 |------|-------|-------|--------|---------|--------|
-| **Gortex** | `knowledge-memory/repo/` | Code files (Swift, Python, TS, etc.) | MCP resources (live) + tree index (`index.json`) + **Markdown xs–XL (via exporter)** | Post-clone (immediate) + daily cron (incremental) + weekly/on-demand (full rebuild) | ✅ Finalized |
-| **PageIndex** | `session-memory/` → `longterm-memory/` | Raw sessions (Markdown) + wiki docs | Tree index (JSON) + summaries xs–XL + analytics files (workedOn, usedTools, fails, learnings, learned, agent-o, skills, human-ai) | Session end (auto) + on-demand | 🔄 Partially finalized |
-| **LLM-Wiki** (Karpathy pattern) | `knowledge-memory/wiki/` | Markdown wikis + sources | Persistent, cross-referenced wiki (LLM-maintained) | Ingest (human-driven) + lint (cron) | ⏳ Open / backlog |
+| **Gortex** | `knowledge-memory/repo/` | Code files (Swift, Python, TS, etc.) | MCP resources (live) + tree index (`index.json`) + **Markdown xs–XL (via exporter)** | Post-clone (immediate) + daily cron (incremental) + weekly/on-demand (full rebuild) | ✅ Clarified |
+| **PageIndex** | `session-memory/` → `longterm-memory/` | Raw sessions (Markdown) + wiki docs | Tree index (JSON) + summaries xs–XL + analytics files (workedOn, usedTools, fails, learnings, learned, agent-o, skills, human-ai) | Session end (auto) + on-demand | 🔄 Partially clarified |
+| **LLM-Wiki** (Karpathy pattern) | `knowledge-memory/wiki/` | Markdown wikis + sources | Persistent, cross-referenced wiki (LLM-maintained) | Ingest (human-driven) + lint (cron) | ⏳ Open |
 | **Understand-Anything** | `knowledge-memory/repo/` & `wiki/` | Code + docs | ADRs, summaries, dependency graphs | On-demand (agent/CI) + PR hook | ⏳ Open |
 | **LightRAG** | `knowledge-memory/rag/` | Wiki + repo docs | Graph-RAG index + query API | Incremental (watcher) + cron (full rebuild) | ⏳ Open |
 | **RAG Anything** | `knowledge-memory/rag/` | Multi-modal files (PDF, images, tables, code) | Multi-modal RAG index | On-demand + cron | ⏳ Open |
