@@ -5,6 +5,7 @@ doc_size: S
 # Instructions — research-manager
 
 [[_all/base-conventions]]
+[[_all/sensitivity-handling]]
 
 ## Routing Logic
 
