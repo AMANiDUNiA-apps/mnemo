@@ -168,7 +168,7 @@ brain-memory/
 
 ## Roadmap
 
-- ✅ Architecture spec defined; constituent tools brought up and tested on a vServer
+- ✅ Architecture spec defined; constituent tools brought up on a test vServer
 - 🔄 Implementation tests of individual layers/tools
 - 🔜 "Swift Tutor" feasibility study: feed mnemo Swift tutorials/docs and have it generate tutorials — the first building block toward **thirdwiki**, fillable and navigable knowledge bases meant to strengthen the human-AI bond
 - 🔜 Evaluate [AFFiNE](https://github.com/toeverything/AFFiNE) as a self-hosted control layer to drive mnemo's tools from a UI (final tool selection still open)
@@ -183,16 +183,16 @@ mnemo composes existing open-source tools rather than reimplementing them. Credi
 | [Gortex](https://github.com/zzet/gortex) | Code-intelligence graph for token-efficient code search |
 | [PageIndex](https://github.com/VectifyAI/PageIndex) | Vectorless, reasoning-based RAG (tree index instead of embeddings) |
 | [LLM-Wiki Pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) | Andrej Karpathy's pattern for LLM-maintained wikis |
-| [Apple Docs Offline Archive](https://github.com/OxADD1/Apple-Developer-Documentation-Offline-Archive) | Offline archive of Apple Developer docs (Markdown/JSON) |
+| [Apple Docs Offline Archive](https://github.com/OxADD1/Apple-Developer-Documentation-Offline-Archive) | Offline archive of Apple Developer docs (Markdown/JSON) — feeds the planned "Swift Tutor" feasibility study |
 | [Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) | Turns code into an interactive, searchable knowledge graph |
-| [Crawl4AI](https://github.com/unclecode/crawl4ai) | LLM-optimized web crawling |
-| [Qdrant](https://github.com/qdrant/qdrant) | Vector database |
-| [Chonkie](https://github.com/feyninc/chonkie) | Lightweight chunking library for RAG pipelines |
+| [Crawl4AI](https://github.com/unclecode/crawl4ai) | LLM-optimized web crawling — candidate ingestion tool for `knowledge-memory/wiki/` or `rag/` |
+| [Qdrant](https://github.com/qdrant/qdrant) | Vector database — candidate backing store for `knowledge-memory/rag/` |
+| [Chonkie](https://github.com/feyninc/chonkie) | Lightweight chunking library for RAG pipelines — candidate chunking step for `knowledge-memory/rag/` |
 | [RAG Anything](https://github.com/HKUDS/RAG-Anything) | Multi-modal RAG pipeline (incl. MinerU) |
 | [LightRAG](https://github.com/HKUDS/LightRAG) | Graph-based RAG pipeline |
 | [Langfuse](https://github.com/langfuse/langfuse) | LLM observability/tracing |
 | [AFFiNE](https://github.com/toeverything/AFFiNE) | Self-hosted, Notion-like workspace — candidate control layer |
-| [CLI-Anything](https://github.com/HKUDS/CLI-Anything) | Turns existing software into agent-native CLIs (e.g. Blender, GIMP, LibreOffice) without GUI automation |
+| [CLI-Anything](https://github.com/HKUDS/CLI-Anything) | Turns existing software into agent-native CLIs (e.g. Blender, GIMP, LibreOffice) without GUI automation — candidate for driving non-CLI tools in future pipeline steps |
 
 ## Contributing
 
