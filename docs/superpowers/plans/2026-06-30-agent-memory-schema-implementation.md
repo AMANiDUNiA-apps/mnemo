@@ -396,7 +396,7 @@ tags: [secrets, bitwarden, hermes, security, germany, gdpr]
 ## Context
 
 The mnemo agent-memory design requires a runtime-agnostic secrets management
-solution. The Hermes agent framework (running on vServer jayServAmani) has
+solution. The Hermes agent framework (running on the agent vServer) has
 a Bitwarden integration. This research informs the mnemo secrets boundary design.
 
 ## Questions to Answer
@@ -1102,7 +1102,7 @@ git push origin main
 - [ ] **Step 2: Pull on vServer**
 
 ```bash
-ssh jay@152.53.155.164 "cd ~/github/loadedrepos/mnemo && git pull --ff-only origin main && echo 'Sync OK' && find brain-memory/agent-memory -name 'CLAUDE.md' | wc -l"
+ssh <agent-vserver> "cd <mnemo-clone> && git pull --ff-only origin main && echo 'Sync OK' && find brain-memory/agent-memory -name 'CLAUDE.md' | wc -l"
 ```
 
 Expected: `Sync OK` and count ≥ 13 CLAUDE.md files.

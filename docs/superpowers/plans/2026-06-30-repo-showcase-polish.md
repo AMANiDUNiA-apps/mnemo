@@ -375,7 +375,7 @@ brain-memory/
 | **RAG Anything** | `knowledge-memory/rag/` | Multi-modal files (PDF, images, tables, code) | Multi-modal RAG index | On-demand + cron | ⏳ Open |
 
 ### Gortex Details (decided)
-- **Scope:** all repos in `~/github/loadedrepos/`
+- **Scope:** all repos in the local repos directory
 - **No `.git` required** — parses source files directly (Tree-Sitter)
 - **MCP live access** for agents (context-minimized: "give me `APIClient.request`" → snippet)
 - **Swift focus:** Tree-Sitter Swift + possibly SourceKit-LSP for type resolution

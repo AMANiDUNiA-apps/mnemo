@@ -4,20 +4,24 @@ doc_size: S
 ---
 # Agent Memory Index
 
-Overview of all profiles in `brain-memory/agent-memory/profile/`.
+This public repo holds the **framework**: shared conventions, role definitions,
+and the per-profile structure documented below.
 
-## Profile Categories
+## Profiles live in a private instance repo
 
-| Category | Profiles | Status |
-|---|---|---|
-| `researcher/` | 🟢 manager, reviewer, default · ⚪ food, llm/{google,nvidia,overall,owl-alpha} | 🟢 = fully scaffolded · ⚪ = bare dir |
-| `assistent/` | 🟡 manager, reviewer · ⚪ cleaner, tagger | 🟡 = stubbed · ⚪ = bare dir |
-| `developer/` | 🟡 manager, reviewer · ⚪ swift-developer, system-developer | 🟡 = stubbed · ⚪ = bare dir |
-| `designer/` | 🟡 manager, reviewer | 🟡 = stubbed |
-| `memory-manager/` | 🟡 manager, reviewer · ⚪ brain-memory-manager, knowledge-memory-manager | 🟡 = stubbed · ⚪ = bare dir |
-| `tutor/` | 🟡 manager, reviewer · ⚪ swift-tutor | 🟡 = stubbed · ⚪ = bare dir |
+The actual `profile/` tree — real soul/instructions/rules, todos, and any
+infrastructure-specific content — lives in the private companion repo
+**`mnemo-brain`**, not here. At runtime both repos are cloned so their
+`brain-memory/agent-memory/` paths overlay into one memory layer:
 
-> **Legend:** 🟢 fully scaffolded (soul/instructions/rules/etc.) · 🟡 stub only (TODO instructions/rules) · ⚪ bare dir (no scaffold yet)
+```
+brain-memory/agent-memory/
+├── _all/        ← this repo (shared conventions)
+└── profile/     ← mnemo-brain (private real content)
+```
+
+This split keeps the public framework free of personal infrastructure details
+while the private instance stays out of public view.
 
 ## Shared Content
 

@@ -172,6 +172,12 @@ brain-memory/
 └── sensitivity-layer/
 ```
 
+> **Public framework, private content.** This repo is the shareable blueprint —
+> schema, conventions, and structure. The real, infrastructure-aware brain
+> content (filled-in agent profiles, todos) lives in a separate private instance
+> repo and overlays onto these paths at runtime. No credentials or infra details
+> belong in this public repo.
+
 ## Roadmap
 
 - ✅ Architecture spec defined; constituent tools brought up on a test vServer
