@@ -45,7 +45,13 @@ mnemo implements a **6-layer memory architecture** designed for LLM agent ecosys
 
 ## Why mnemo?
 
-mnemo grew out of a simple, recurring problem: anyone building with LLM agents eventually needs structured, layered memory — without it, context either grows unbounded (cost, latency) or stays too shallow (the agent forgets everything between sessions). This repository is the architecture layer underneath a larger goal: a **native macOS app** (Vapor backend, SwiftData) that uses this memory system end-to-end — open source, MIT licensed. A fully native Swift reimplementation of MinerU (used by RAG Anything for multi-modal parsing) isn't practical right now, so that part of the RAG pipeline stays dependent on the existing Python ecosystem for the time being.
+The concrete itch that started this: running Claude Code on a vServer and Claude Desktop on a Mac, expecting them to somehow share context with each other — they don't. Installing Claude Code on two machines doesn't make those two instances aware of each other's state. Every machine, every fresh Claude session, starts from zero: you re-explain your projects, your preferences, your conventions, and where you left off, every time. That's not a personal annoyance — it's a structural gap in how multi-machine agent workflows work today, and most developers running agents on more than one machine hit it.
+
+mnemo's goal is to close that gap: configure your memory layers once, then plug any Claude instance — on any machine — into the same memory, plug-and-play. The agent on your vServer and the one on your desktop should see the same projects, the same accumulated knowledge, the same "where you are right now" — without re-teaching either one from scratch. This repository is the architecture for that (see [Roadmap](#roadmap) for what's actually built today vs. still aspirational — it's early).
+
+Beyond cross-machine continuity, mnemo also addresses the more familiar single-agent problem: structured, layered memory keeps context from growing unbounded (cost, latency) while still giving an agent more than a session's worth of working memory.
+
+The longer-term goal is a **native macOS app** (Vapor backend, SwiftData) that makes this memory system usable end-to-end — open source, MIT licensed. A fully native Swift reimplementation of MinerU (used by RAG Anything for multi-modal parsing) isn't practical right now, so that part of the RAG pipeline stays dependent on the existing Python ecosystem for the time being.
 
 ## Key Features
 
