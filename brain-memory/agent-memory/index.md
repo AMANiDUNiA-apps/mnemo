@@ -10,12 +10,14 @@ Overview of all profiles in `brain-memory/agent-memory/profile/`.
 
 | Category | Profiles | Status |
 |---|---|---|
-| `researcher/` | manager, reviewer, default, food, llm/{google,nvidia,overall,owl-alpha} | 🟢 manager/reviewer/default scaffolded |
-| `assistent/` | manager, reviewer, cleaner, tagger | 🟡 manager/reviewer stubbed |
-| `developer/` | manager, reviewer, swift-developer, system-developer | 🟡 manager/reviewer stubbed |
-| `designer/` | manager, reviewer | 🟡 manager/reviewer stubbed |
-| `memory-manager/` | manager, reviewer, brain-memory-manager, knowledge-memory-manager | 🟡 manager/reviewer stubbed |
-| `tutor/` | manager, reviewer, swift-tutor | 🟡 manager/reviewer stubbed |
+| `researcher/` | 🟢 manager, reviewer, default · ⚪ food, llm/{google,nvidia,overall,owl-alpha} | 🟢 = fully scaffolded · ⚪ = bare dir |
+| `assistent/` | 🟡 manager, reviewer · ⚪ cleaner, tagger | 🟡 = stubbed · ⚪ = bare dir |
+| `developer/` | 🟡 manager, reviewer · ⚪ swift-developer, system-developer | 🟡 = stubbed · ⚪ = bare dir |
+| `designer/` | 🟡 manager, reviewer | 🟡 = stubbed |
+| `memory-manager/` | 🟡 manager, reviewer · ⚪ brain-memory-manager, knowledge-memory-manager | 🟡 = stubbed · ⚪ = bare dir |
+| `tutor/` | 🟡 manager, reviewer · ⚪ swift-tutor | 🟡 = stubbed · ⚪ = bare dir |
+
+> **Legend:** 🟢 fully scaffolded (soul/instructions/rules/etc.) · 🟡 stub only (TODO instructions/rules) · ⚪ bare dir (no scaffold yet)
 
 ## Shared Content
 
