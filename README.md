@@ -119,11 +119,10 @@ mnemo implements a **6-layer memory architecture** designed for LLM agent ecosys
 
 ## Getting Started
 
-> **Note:** This repository currently contains the architecture specification and initial folder skeleton. Implementation is actively being developed in the Hermes Agent profiles under `~/.hermes/profiles/brain-*/`.
-
 ### Prerequisites
 
-- Hermes Agent with profiles: `brain-memory-manager`, `brain-user-memory`, `brain-agent-memory`, `brain-session-memory`, `brain-project-memory`, `brain-knowledge-memory`, `brain-longterm-memory`, `brain-sensitivity`
+- **Note:** This repository contains the architecture specification and is the starting point for the open-source implementation, currently in early development.
+- Agent with profiles: `brain-memory-manager`, `brain-user-memory`, `brain-agent-memory`, `brain-session-memory`, `brain-project-memory`, `brain-knowledge-memory`, `brain-longterm-memory`, `brain-sensitivity`
 - Tools: `gortex`, `pageindex`, `lightrag`, `rag-anything` (as MCP servers)
 - Langfuse instance (self-hosted or cloud) for observability
 
