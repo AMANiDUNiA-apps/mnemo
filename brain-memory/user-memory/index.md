@@ -1,12 +1,12 @@
 # User Memory Index
 
-| File | Size | Description | Updated |
-|------|------|-------------|---------|
-| profile-xs.md | xS | Minimal user profile | — |
-| profile-s.md | S | Standard user profile | — |
-| profile-m.md | M | Detailed user profile | — |
-| profile-l.md | L | Full user profile | — |
-| profile-xl.md | XL | Complete user profile | — |
-| topics/preferences.md | M | User preferences | — |
-| topics/projects.md | S | Tracked projects | — |
-| topics/history.md | L | Interaction history | — |
+| File | Size | Description | Status | Updated |
+|------|------|--------------|--------|---------|
+| profile-xs.md | xS | Minimal user profile | example | — |
+| profile-s.md | S | Standard user profile | example | — |
+| profile-m.md | M | Detailed user profile | planned | — |
+| profile-l.md | L | Full user profile | planned | — |
+| profile-xl.md | XL | Complete user profile | planned | — |
+| topics/preferences.md | M | User preferences | example | — |
+| topics/projects.md | S | Tracked projects | planned | — |
+| topics/history.md | L | Interaction history | planned | — |

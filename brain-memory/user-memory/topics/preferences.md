@@ -8,14 +8,16 @@ layer: "user-memory"
 
 # User Preferences
 
+> **Note:** This file is an illustrative example of the schema, not real user data. Replace it with your actual preferences when adopting this template — and remember it's tagged `INTERNAL`, so don't commit a real one to a public repo.
+
 ## Communication Style
-- **Language:** German (primary), English (technical terms)
+- **Language:** English (primary), German (secondary)
 - **Tone:** Direct, technical, concise
 - **Detail Level:** High — prefers full context over summaries
 
 ## Tooling Preferences
 - **Editor:** VS Code / Cursor
-- **Terminal:** Hermes TUI / kitty
+- **Terminal:** your terminal of choice
 - **Shell:** zsh
 - **Package Manager:** uv (Python), npm/pnpm (Node), brew (macOS)
 - **Container Runtime:** Docker / Podman
@@ -24,12 +26,12 @@ layer: "user-memory"
 ## Development Workflow
 - **Branching:** Feature branches per ingest/task
 - **Commits:** Atomic, signed, conventional format
-- **Reviews:** Self-review via subagents before PR
+- **Reviews:** Self-review before PR
 - **Testing:** TDD where feasible, integration tests for infra
 - **Documentation:** Markdown-first, living docs in repo
 
 ## AI/LLM Preferences
-- **Primary Models:** Free/OpenRouter models (Nemotron, Qwen, etc.)
+- **Primary Models:** your preferred model providers
 - **Local Inference:** llama.cpp, vLLM, Ollama
 - **Observability:** Langfuse (self-hosted), JSONL token tracking
 - **Privacy:** Sensitivity tags enforced, no cloud for SENSITIVE/PRIVATE
@@ -39,12 +41,12 @@ layer: "user-memory"
 - **Provisioning:** Ansible, Terraform/OpenTofu
 - **Orchestration:** Docker Compose, systemd
 - **Monitoring:** Prometheus, Grafana, Loki, Alertmanager
-- **Backup:** Restic + rclone (GDrive), future Syncthing to NAS
-- **VPN/Mesh:** Tailscale, WireGuard
+- **Backup:** Restic + rclone, offsite sync
+- **VPN/Mesh:** your mesh VPN of choice
 
 ## Knowledge Management
-- **Primary:** Hermes brain-memory profiles (6 layers)
-- **Secondary:** Obsidian vault (~/brains/)
+- **Primary:** mnemo brain-memory profiles (6 layers)
+- **Secondary:** your notes app of choice
 - **Code Navigation:** Gortex MCP
 - **Session Analytics:** PageIndex
 - **RAG:** LightRAG, RAG Anything

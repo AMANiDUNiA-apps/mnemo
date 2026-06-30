@@ -4,7 +4,7 @@ Thank you for your interest in contributing to **mnemo** — the LLM Brain Memor
 
 ## Current Status
 
-**This repository currently contains the architecture specification and initial folder skeleton.** The implementation lives in the Hermes Agent profiles under `~/.hermes/profiles/brain-*/` and is actively being developed.
+**This repository currently contains the architecture specification and initial folder skeleton.** The reference implementation is being developed as a set of agent profiles against this spec, and is actively in progress.
 
 We welcome contributions to:
 - The specification (`brain-memory-manager-spec.md`)
@@ -70,15 +70,15 @@ git push origin your-branch
 
 ## Development Setup
 
-The implementation runs in **Hermes Agent** with specialized profiles:
+The reference implementation is designed to run as a set of specialized agent profiles, one per layer:
 - `brain-memory-manager` (orchestrator)
 - `brain-user-memory`, `brain-agent-memory`, `brain-session-memory`
 - `brain-project-memory`, `brain-knowledge-memory`, `brain-longterm-memory`
 - `brain-sensitivity`
 
 To run locally, you'll need:
-1. Hermes Agent installed
-2. The 8 brain-* profiles configured
+1. An LLM agent runtime that supports multiple profiles/sub-agents with filesystem access (e.g. Claude Code, or any agent framework that can load per-profile system prompts)
+2. The 8 brain-* profiles configured per the spec
 3. MCP servers: `gortex`, `pageindex`, `lightrag`, `rag-anything`
 4. Langfuse instance (optional, for telemetry)
 

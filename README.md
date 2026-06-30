@@ -1,6 +1,26 @@
 # mnemo — LLM Brain Memory Manager
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/status-early%20development-orange.svg)](#roadmap)
+
 > **A multi-layered memory system for LLM agents** — Distributes and synchronizes information across specialized memory layers so each agent achieves optimal results with minimal context/token consumption.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Why mnemo?](#why-mnemo)
+- [Key Features](#key-features)
+- [Architecture](#architecture)
+- [Tools & Services](#tools--services)
+- [Pipeline](#pipeline)
+- [Git Workflow](#git-workflow)
+- [Backup Strategy](#backup-strategy)
+- [Telemetry](#telemetry)
+- [Getting Started](#getting-started)
+- [Roadmap](#roadmap)
+- [Credits & Acknowledgments](#credits--acknowledgments)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Overview
 
@@ -22,6 +42,10 @@ mnemo implements a **6-layer memory architecture** designed for LLM agent ecosys
 └─────────────────────────────────────────────────────────────────┘
 + SENSITIVITY-LAYER       → Tag enforcement & privacy policies
 ```
+
+## Why mnemo?
+
+mnemo grew out of a simple, recurring problem: anyone building with LLM agents eventually needs structured, layered memory — without it, context either grows unbounded (cost, latency) or stays too shallow (the agent forgets everything between sessions). This repository is the architecture layer underneath a larger goal: a **native macOS app** (Vapor backend, SwiftData) that uses this memory system end-to-end — open source, MIT licensed. A fully native Swift reimplementation of MinerU (used by RAG Anything for multi-modal parsing) isn't practical right now, so that part of the RAG pipeline stays dependent on the existing Python ecosystem for the time being.
 
 ## Key Features
 
@@ -97,7 +121,7 @@ mnemo implements a **6-layer memory architecture** designed for LLM agent ecosys
 └──────────────────┘
 ```
 
-**Implementation:** Hybrid — Core skills in shared library (`~/system/clis/brain-memory-skills/`), OS triggers (cron + inotify), Langfuse tracing.
+**Implementation:** Hybrid — Core skills in shared library (`~/brain-memory-skills/`), OS triggers (cron + inotify), Langfuse tracing.
 
 ## Git Workflow
 
@@ -141,6 +165,34 @@ brain-memory/
 ├── longterm-memory/
 └── sensitivity-layer/
 ```
+
+## Roadmap
+
+- ✅ Architecture spec defined; constituent tools brought up on a test vServer
+- 🔄 Implementation tests of individual layers/tools
+- 🔜 "Swift Tutor" feasibility study: feed mnemo Swift tutorials/docs and have it generate tutorials — the first building block toward **thirdwiki**, fillable and navigable knowledge bases meant to strengthen the human-AI bond
+- 🔜 Evaluate [AFFiNE](https://github.com/toeverything/AFFiNE) as a self-hosted control layer to drive mnemo's tools from a UI (final tool selection still open)
+- 🔜 Native macOS app (Vapor + SwiftData)
+
+## Credits & Acknowledgments
+
+mnemo composes existing open-source tools rather than reimplementing them. Credit where it's due:
+
+| Tool | Purpose |
+|------|---------|
+| [Gortex](https://github.com/zzet/gortex) | Code-intelligence graph for token-efficient code search |
+| [PageIndex](https://github.com/VectifyAI/PageIndex) | Vectorless, reasoning-based RAG (tree index instead of embeddings) |
+| [LLM-Wiki Pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) | Andrej Karpathy's pattern for LLM-maintained wikis |
+| [Apple Docs Offline Archive](https://github.com/OxADD1/Apple-Developer-Documentation-Offline-Archive) | Offline archive of Apple Developer docs (Markdown/JSON) — feeds the planned "Swift Tutor" feasibility study |
+| [Understand-Anything](https://github.com/Egonex-AI/Understand-Anything) | Turns code into an interactive, searchable knowledge graph |
+| [Crawl4AI](https://github.com/unclecode/crawl4ai) | LLM-optimized web crawling — candidate ingestion tool for `knowledge-memory/wiki/` or `rag/` |
+| [Qdrant](https://github.com/qdrant/qdrant) | Vector database — candidate backing store for `knowledge-memory/rag/` |
+| [Chonkie](https://github.com/feyninc/chonkie) | Lightweight chunking library for RAG pipelines — candidate chunking step for `knowledge-memory/rag/` |
+| [RAG Anything](https://github.com/HKUDS/RAG-Anything) | Multi-modal RAG pipeline (incl. MinerU) |
+| [LightRAG](https://github.com/HKUDS/LightRAG) | Graph-based RAG pipeline |
+| [Langfuse](https://github.com/langfuse/langfuse) | LLM observability/tracing |
+| [AFFiNE](https://github.com/toeverything/AFFiNE) | Self-hosted, Notion-like workspace — candidate control layer |
+| [CLI-Anything](https://github.com/HKUDS/CLI-Anything) | Turns existing software into agent-native CLIs (e.g. Blender, GIMP, LibreOffice) without GUI automation — candidate for driving non-CLI tools in future pipeline steps |
 
 ## Contributing
 
