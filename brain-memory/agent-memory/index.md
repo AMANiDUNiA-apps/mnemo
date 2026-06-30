@@ -1,18 +1,57 @@
+---
+sensitivity: INTERNAL
+doc_size: S
+---
 # Agent Memory Index
 
-| Path | Size | Description | Status | Updated |
-|------|------|--------------|--------|---------|
-| _all/skills-index.md | M | All available skills overview | planned | — |
-| _all/mcps.md | S | All MCP server configurations | planned | — |
-| _all/skills-xs.md | xS | Minimal skills reference | planned | — |
-| _all/skills-s.md | S | Quick skills reference | planned | — |
-| _all/skills-m.md | M | Standard skills reference | planned | — |
-| _all/skills-l.md | L | Detailed skills reference | planned | — |
-| _all/skills-xl.md | XL | Complete skills reference | planned | — |
-| [AgentName]/ | — | Agent-specific configurations | planned | — |
+Overview of all profiles in `brain-memory/agent-memory/profile/`.
 
-## Shared (_all/)
-Common to all agents — skills, MCPs, CLIs available globally. None of the files above exist yet; this table documents the intended structure.
+## Profile Categories
 
-## Agent-Specific (<AgentName>/)
-Per-agent overrides and specialized configs (e.g., `system_developer/`, `researcher/`, `docker/`). Not yet populated.
+| Category | Profiles | Status |
+|---|---|---|
+| `researcher/` | manager, reviewer, default, food, llm/{google,nvidia,overall,owl-alpha} | 🟢 manager/reviewer/default scaffolded |
+| `assistent/` | manager, reviewer, cleaner, tagger | 🟡 manager/reviewer stubbed |
+| `developer/` | manager, reviewer, swift-developer, system-developer | 🟡 manager/reviewer stubbed |
+| `designer/` | manager, reviewer | 🟡 manager/reviewer stubbed |
+| `memory-manager/` | manager, reviewer, brain-memory-manager, knowledge-memory-manager | 🟡 manager/reviewer stubbed |
+| `tutor/` | manager, reviewer, swift-tutor | 🟡 manager/reviewer stubbed |
+
+## Shared Content
+
+| Path | Purpose |
+|---|---|
+| `_all/base-conventions.md` | Universal file format, naming, wikilink conventions |
+| `_all/sensitivity-handling.md` | Sensitivity tag enforcement rules |
+| `_all/git-workflow.md` | Branch and merge conventions |
+| `_all/skills/` | Skills shared across profiles |
+
+## Role Conventions
+
+| Role | Folder | Responsibility |
+|---|---|---|
+| Manager | `<category>/manager/` | Dispatcher — routes, delegates, synthesizes. No direct execution. |
+| Reviewer | `<category>/reviewer/` | Quality gate — approves output before it leaves the category. |
+| Default | `<category>/default/` | Generalist catch-all executor for the category. |
+| Specific | `<category>/<name>/` | Specialized executor for a defined domain. |
+
+## Per-Profile Structure
+
+Every profile folder:
+```
+<profile>/
+├── CLAUDE.md          ← lean entry point with [[wikilink]] references
+├── projects/          ← filtered context from project-memory
+├── todos/             ← open tasks (one .md per todo, YAML frontmatter)
+├── ideas/             ← improvement/research ideas backlog
+├── plans/             ← active operational plans (living documents)
+└── system/
+    ├── soul.md
+    ├── instructions.md
+    ├── rules.md
+    ├── skills/
+    ├── index.md
+    └── log.md
+```
+
+See `docs/superpowers/specs/2026-06-30-agent-memory-schema-design.md` for the full spec.
