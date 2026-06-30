@@ -14,5 +14,11 @@
 ## Skills
 → `system/skills/`
 
+## Current focus
+→ `todos/` | `plans/`
+
+## Project context
+→ `projects/`
+
 ## System overview
 → `system/index.md`
