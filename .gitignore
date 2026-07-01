@@ -1,6 +1,15 @@
-# Private brain instance is overlaid here at runtime (from the mnemo-brain repo).
-# Never track real profile content in this public repo.
-/brain-memory/agent-memory/profile
+# ── Public mnemo = FRAMEWORK SKELETON ONLY ──────────────────────────────
+# Real brain content lives ONLY in the private repo:
+#   github.com/amaniagent/mnemo-brain-memory-intern
+# Under brain-memory/, track only skeleton markers: .gitkeep, index.md, *.example
+/brain-memory/**
+!/brain-memory/**/
+!/brain-memory/**/.gitkeep
+!/brain-memory/**/index.md
+!/brain-memory/**/*.example
+
+# Legacy explicit guard (overlaid private profile path)
+/brain-memory/agent-memory/profile/
 
 # macOS noise
 .DS_Store
