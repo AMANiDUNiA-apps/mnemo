@@ -1,3 +1,6 @@
 # Private brain instance is overlaid here at runtime (from the mnemo-brain repo).
 # Never track real profile content in this public repo.
 /brain-memory/agent-memory/profile
+
+# macOS noise
+.DS_Store
