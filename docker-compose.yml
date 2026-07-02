@@ -1,0 +1,13 @@
+# mnemo macOS App — Infrastruktur-Sidecars (Projektplan v3, F07)
+# Nur für komplexe wissenschaftliche PDFs; Standard-Dokumente parst die App nativ
+# (PDFKit/Vision). Start: docker compose up -d mineru
+
+name: mnemo-sidecars
+services:
+  mineru:
+    image: opendatalab/mineru:latest
+    container_name: mnemo_mineru
+    ports:
+      - "127.0.0.1:8765:8000"
+    restart: unless-stopped
+    # ⚠️ RAM-hungrig — nur bei Bedarf starten, nicht als Dauerläufer
