@@ -31,6 +31,8 @@ echo
 echo "-- 3) Framework-Dateien (index.md / *.example), die live abweichen oder fehlen"
 (cd "$FW_BM" && find . -type f \( -name 'index.md' -o -name '*.example' \)) | while read -r f; do
   if [ ! -f "$LIVE/$f" ]; then
+    # .example gilt als erfüllt, wenn live die echte Datei liegt
+    case "$f" in *.example) [ -f "$LIVE/${f%.example}" ] && continue;; esac
     echo "  fehlt live: ${f#./}"
   elif ! diff -q "$FW_BM/$f" "$LIVE/$f" >/dev/null 2>&1; then
     echo "  abweichend: ${f#./}"
