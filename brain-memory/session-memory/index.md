@@ -1,18 +1,22 @@
+---
+sensitivity: PUBLIC
+doc_size: S
+layer: session-memory
+---
 # Session Memory Index
 
-| Session | Date | Topic | Size | Tags | Promoted |
-|---------|------|-------|------|------|----------|
-| — | — | — | — | — | — |
+Per-session working memory — raw export plus distilled artifacts. High-value
+learnings get **promoted** to [[longterm-memory/index]].
 
-Each session (`session-memory/<SessionName>/`):
-- `raw.md` — Complete session export (Markdown)
+## Per-Session Structure (`session-memory/<SessionName>/`)
+
+- `raw.md` — complete session export
 - `tree-index.json` — PageIndex tree index
-- `summary-xs.md` … `summary-xl.md` — Tiered summaries
-- `workedOn.md` — Files/tasks worked on
-- `usedTools.md` — Tools invoked
-- `fails.md` — Errors, dead ends, failed approaches
-- `learnings.md` — Key learnings
-- `learned.md` — Consolidated knowledge
-- `agent-o.md` — Optimization ideas for agent-o
-- `skills.md` — Skill candidates discovered
-- `human-ai.md` — Human-AI interaction insights
+- `summary-xs.md … -xl.md` — tiered summaries
+- `workedOn.md` — files/tasks touched · `usedTools.md` — tools invoked
+- `fails.md` — errors, dead ends · `learnings.md` / `learned.md` — key/consolidated learnings
+- `agent-o.md` — optimization ideas · `skills.md` — skill candidates · `human-ai.md` — interaction insights
+
+| Session | Date | Topic | Promoted |
+|---|---|---|---|
+| — | — | — | — |

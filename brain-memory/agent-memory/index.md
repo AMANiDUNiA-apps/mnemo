@@ -1,81 +1,60 @@
 ---
-sensitivity: INTERNAL
+sensitivity: PUBLIC
 doc_size: S
+layer: agent-memory
 ---
 # Agent Memory Index
 
-This public repo holds the **framework**: shared conventions, role definitions,
-and the per-profile structure documented below.
+Everything that **defines an agent**: profiles (persona, rules, skills), the runtimes
+they run on, the MCP servers they share, reusable skills, and the overarching plan.
 
-## AgentOS: building blocks + profiles
-
-`agent-memory` is an **AgentOS**: a kit of building blocks plus profiles that
-compose them by ID. Everything is Markdown + YAML frontmatter.
-
-| Block | Holds |
-|---|---|
-| `agent-runtime/` | Runtime definitions (claude-code, hermes, …) |
-| `agent-llms/` | Model/provider definitions with roles & `best_for` |
-| `agent-skills/` | Skills shared or distilled (see skill-forge loop) |
-| `agent-mcps/` | MCP server definitions |
-| `agent-clis/` | CLI tool definitions |
-| `agent-profiles/<group>/<name>/` | Profiles composing blocks by ID |
-| `_all/` | Shared conventions, build guide, validator, fail captures |
-
-## Profiles live in a private instance repo
-
-Real profile content (soul/instructions/rules, todos, plans) lives in the
-private companion repo **`mnemo-brain-memory-intern`**, not here. At runtime
-the public skeleton and the private content overlay into one live tree:
-
-```
-brain-memory/agent-memory/
-├── _all/              ← this repo (shared conventions, validator)
-├── agent-<block>/     ← skeleton here, real definitions private
-└── agent-profiles/    ← real profiles private
-```
-
-This split keeps the public framework free of personal infrastructure details
-while the private instance stays out of public view. See
-`docs/overlay-architecture.md` for the full overlay contract.
-
-## Shared Content
+## Structure
 
 | Path | Purpose |
 |---|---|
-| `_all/base-conventions.md` | Universal file format, naming, wikilink conventions |
-| `_all/sensitivity-handling.md` | Sensitivity tag enforcement rules |
-| `_all/git-workflow.md` | Branch and merge conventions |
-| `agent-skills/` | Skills shared across profiles (block, composed by ID) |
+| `agent-master-plan/` | Overarching plan for the agent system (roadmaps, specs) |
+| `agent-profiles/` | Profile definitions, grouped by domain (see below) |
+| `agent-runtime/` | Runtime-specific config/adapters: `claude-code/`, `hermes-agent/`, `open-code/` |
+| `agent-llms/` | Model/provider definitions (roles, cost, `best_for`) |
+| `agent-skills/` | Reusable skills: `code-skills/` (metal/swift/web), `design-skills/`, `planning-skills/` |
+| `agent-mcps/` | MCP server configs shared across profiles |
+| `agent-clis/` | CLI tool definitions shared across profiles |
+| `_all/` | Shared conventions (base format, naming, sensitivity handling, wikilinks), build guide, validator |
 
-## Role Conventions
+## Profile Groups (`agent-profiles/<group>/`)
+
+`article-press-agents` · `assistent-agents` · `design-agents` ·
+`memory-manager-agents` · `researcher-agents` · `swift-agents` ·
+`system-agents` · `tool-agents`
+
+## Role Convention (within a group)
 
 | Role | Folder | Responsibility |
 |---|---|---|
-| Manager | `<category>/manager/` | Dispatcher — routes, delegates, synthesizes. No direct execution. |
-| Reviewer | `<category>/reviewer/` | Quality gate — approves output before it leaves the category. |
-| Default | `<category>/default/` | Generalist catch-all executor for the category. |
-| Specific | `<category>/<name>/` | Specialized executor for a defined domain. |
+| Manager | `<group>-manager/` | Dispatcher — routes/delegates/synthesizes; no direct execution |
+| Optimizer | `<group>-optimizer/` | Improves the group's profiles, skills, prompts |
+| Reviewer | `<group>-reviewer/` | Quality gate before output leaves the group |
+| Specific | `<group>/<name>/` | Specialized executor (e.g. `swift-agents/swift-vapor/`) |
 
-## Per-Profile Structure
+## Per-Profile Structure (target)
 
-Every profile folder:
 ```
-agent-profiles/<group>/<name>/
-├── CLAUDE.md          ← YAML frontmatter composes blocks by ID + policy
-├── core/
-│   ├── soul.md        ← what the agent IS
-│   ├── instructions.md
-│   ├── rules.md       ← what it MAY / DOES
-│   └── log.md
-├── todos/             ← open tasks (one .md per todo, YAML frontmatter)
-├── ideas/             ← improvement/research ideas backlog
-└── plans/             ← active operational plans (living documents)
+<profile>/
+├── CLAUDE.md          ← lean entry: frontmatter composes blocks by id + policy
+├── core/              ← the agent's definition
+│   ├── soul.md        (is) · instructions.md (does)
+│   ├── rules.md       (may / may-not) · log.md
+├── todos/  ideas/  plans/
 ```
 
-Block IDs referenced in `CLAUDE.md` frontmatter **must exist** in the block
-registry — missing blocks go into a `needs-blocks:` field instead of being
-invented. A validator (`_all/validate-profiles.py` in the instance) gates
-this: exit 0 = clean.
+Skills/MCPs/CLIs are **not** copied per profile — they live in their blocks
+(`agent-skills/`, `agent-mcps/`, `agent-clis/`) and are referenced by `id` in the
+profile's frontmatter. Skeleton is shareable; real `soul.md`/`rules.md`/todos are private.
 
-See `docs/superpowers/specs/2026-06-30-agent-memory-schema-design.md` for the full spec.
+Block ids referenced in `CLAUDE.md` frontmatter **must exist** in the id registry —
+missing blocks go into a `needs-blocks:` field instead of being invented. A validator
+(`_all/validate-profiles.py`) gates this: exit 0 = clean.
+
+> Public/private split: the skeleton and these conventions are the public framework;
+> real profile content overlays from the private instance repo.
+> See `docs/overlay-architecture.md` for the overlay contract.

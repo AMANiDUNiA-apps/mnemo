@@ -1,15 +1,24 @@
+---
+sensitivity: PUBLIC
+doc_size: S
+layer: longterm-memory
+---
 # Longterm Memory Index
 
-| Insight / Pattern | Size | Source Session | Promoted | Tags |
-|-------------------|------|----------------|----------|------|
-| — | — | — | — | — |
+Durable, cross-session knowledge — **promoted** from [[session-memory/index]] after it
+proves recurring or load-bearing.
 
-## Insights (insights/)
-Promoted session learnings — curated, cross-session patterns.
+| Path | Purpose |
+|---|---|
+| `insights/` | Promoted session learnings — curated, cross-session patterns |
+| `patterns/` | Recurring best practices, anti-patterns, architectural decisions |
 
-Each insight:
-- `insight-xs.md` … `insight-xl.md` — Tiered summaries
-- `source-session.md` — Reference to original session
+## insights/
+Each insight: `insight-xs.md … -xl.md` (tiered) + `source-session.md` (reference to origin).
 
-## Patterns (patterns/)
-Recurring best practices, anti-patterns, architectural decisions.
+## patterns/
+One file per pattern; note when it applies and its counter-cases.
+
+| Insight / Pattern | Source Session | Promoted | Tags |
+|---|---|---|---|
+| — | — | — | — |

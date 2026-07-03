@@ -1,38 +1,39 @@
-# Sensitivity Layer Configuration
+---
+sensitivity: PUBLIC
+doc_size: M
+layer: sensitivity-layer
+---
+# Sensitivity Layer
 
-This file controls the sensitivity tagging system. All memory files should have a `sensitivity` field in their frontmatter.
+Cross-cutting policy for **all** layers. Every memory file carries a `sensitivity:`
+frontmatter tag; this layer defines what each tag means and how it is enforced.
+Guiding principle: **storage location enforces the tag** (as proven by the public↔private split).
 
-## Sensitivity Tags
+## Tags
 
 | Tag | Meaning | LLM Access | Logging |
-|-----|---------|------------|---------|
+|---|---|---|---|
 | `PUBLIC` | Free to forward, external models OK | All | Full |
 | `INTERNAL` | Local models only, no cloud LLM | Local only | Metadata |
-| `SENSITIVE` | Never in LLM context, structural ref only | Never | No payload |
+| `SENSITIVE` | Never in LLM context, structural reference only | Never | No payload |
 | `PRIVATE` | Absolutely local, no logging | Never | Nothing |
 
 ## Enforcement
 
-- **Frontmatter**: Every memory file MUST include `sensitivity: TAG`
-- **Runtime Index**: SQLite DB at `index.db` for fast lookups
-- **Enforcement Mode**: `strict` (default) — blocks non-compliant content from LLM context
+- Every memory file **MUST** include `sensitivity: TAG` — files without it are rejected.
+- `SENSITIVE`/`PRIVATE` payloads are stripped before any LLM call.
+- `INTERNAL` content goes only to local models.
+- `PUBLIC` has no restrictions.
+- Placement rule: `PUBLIC` → shareable framework repo; `INTERNAL`+ → private instance / local only.
 
-## Configuration
+## Configuration (`config.yaml`)
 
 ```yaml
-# sensitivity-layer/config.yaml
 enabled: true
 default_tag: "INTERNAL"
-enforcement: "strict"
+enforcement: "strict"        # blocks non-compliant content from LLM context
 feature_flags:
   pii_redaction: true
   tag_enforcement: true
   log_filtering: true
 ```
-
-## Tag Enforcement Rules
-
-1. Files without sensitivity tag → rejected
-2. `SENSITIVE`/`PRIVATE` content → stripped before LLM calls
-3. `INTERNAL` content → only sent to local models
-4. `PUBLIC` content → no restrictions

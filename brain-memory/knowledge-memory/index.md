@@ -1,24 +1,26 @@
+---
+sensitivity: PUBLIC
+doc_size: S
+layer: knowledge-memory
+---
 # Knowledge Memory Index
 
-| Path | Size | Description | Updated |
-|------|------|-------------|---------|
-| repo-knowledge/ | — | Source code repositories (Gortex indexed) | — |
-| wiki-knowledge/ | — | LLM-maintained knowledge wiki | — |
-| rag-knowledge/ | — | Graph-RAG indices (LightRAG, RAG Anything) | — |
+External knowledge the agents draw on, in three complementary forms.
 
-## Repositories (repo-knowledge/)
-Managed by **Gortex** — each repo gets:
-- `index.json` — Gortex tree-index
-- `<name>-xs.md` … `<name>-xl.md` — Doc-size tiered exports
-- `raw/` — Original files (optional reference)
+| Path | Managed by | Description |
+|---|---|---|
+| `repo-knowledge/` | **Gortex** | Source-code repositories, graph-indexed |
+| `wiki-knowledge/` | **LLM-Wiki** (Karpathy pattern) | LLM-maintained knowledge wiki |
+| `rag-knowledge/` | **LightRAG** + **RAG-Anything** | Graph-RAG + multimodal indices |
 
-## Wiki (wiki-knowledge/)
-Managed by **LLM-Wiki (Karpathy Pattern)** — each topic gets:
-- `index.md` — Wiki entry point
-- `CLAUDE.md` — LLM maintenance schema
-- `<topic>-xs.md` … `<topic>-xl.md` — Tiered summaries
+## repo-knowledge/
+Per repo: `index.json` (Gortex tree-index), `<name>-xs.md … -xl.md` (tiered exports),
+optional `raw/` originals.
 
-## RAG (rag-knowledge/)
-Managed by **LightRAG** + **RAG Anything** — each domain gets:
-- Graph index + vector store
-- Query API endpoint
+## wiki-knowledge/
+Per topic: `index.md` (entry point), `CLAUDE.md` (maintenance schema),
+`<topic>-xs.md … -xl.md` (tiered summaries).
+
+## rag-knowledge/
+Per domain: graph index + vector store + query endpoint (backing services, e.g.
+LightRAG / RAG-Anything / wikirag, run locally).
