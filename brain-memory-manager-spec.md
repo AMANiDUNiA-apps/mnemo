@@ -1,7 +1,7 @@
 # Brain Memory Manager — Specification (Work in Progress)
 
 > **Status:** In progress — refined via sequential clarification
-> **Last Updated:** 2026-06-30
+> **Last Updated:** 2026-07-03 (v0.2 — 8-layer alignment with the live instance)
 > **Based on:** Private original draft notes (not included in this repo)
 
 ---
@@ -19,21 +19,27 @@
 
 ---
 
-## 2. Layer Architecture (6 Layers)
+## 2. Layer Architecture (8 Layers)
+
+Six content layers plus two cross-cutting layers (`sensitivity-layer`, `telemetry`).
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│ 1. USER-MEMORY          → User-Profile, Preferences, History   │
+│ 1. USER-MEMORY          → User-Profile, Preferences, History    │
 ├─────────────────────────────────────────────────────────────────┤
-│ 2. AGENT-MEMORY         → Skills, MCPs, CLIs, Agent-Configs    │
+│ 2. AGENT-MEMORY         → AgentOS: Building Blocks + Profiles   │
 ├─────────────────────────────────────────────────────────────────┤
-│ 3. SESSION-MEMORY       → Raw Sessions + PageIndex Analytics   │
+│ 3. SESSION-MEMORY       → Raw Sessions + PageIndex Analytics    │
 ├─────────────────────────────────────────────────────────────────┤
-│ 4. PROJECT-MEMORY       → Project Goals, Stack, ADRs, TODOs    │
+│ 4. PROJECT-MEMORY       → Project Goals, Stack, ADRs, TODOs     │
 ├─────────────────────────────────────────────────────────────────┤
-│ 5. KNOWLEDGE-MEMORY     → Repos, Wiki, RAG (persistent knowledge)│
+│ 5. KNOWLEDGE-MEMORY     → Repos, Wiki, RAG (persistent)         │
 ├─────────────────────────────────────────────────────────────────┤
-│ 6. LONGTERM-MEMORY      → Promoted Session Insights            │
+│ 6. LONGTERM-MEMORY      → Promoted Session Insights             │
+╞═════════════════════════════════════════════════════════════════╡
+│ 7. SENSITIVITY-LAYER    → Cross-cutting: tags + enforcement     │
+├─────────────────────────────────────────────────────────────────┤
+│ 8. TELEMETRY            → Token/cost tracking, traces           │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -42,23 +48,19 @@
 | From | To | Mechanism |
 |------|-----|-----------|
 | `session-memory` | `longterm-memory` | **Hybrid Promotion** — auto-score as suggestion + human confirm (one-click) — default: "decide later" — **after 28 days of inactivity: auto-promotion (no delete)** |
-| `project-memory` | `knowledge-memory/wiki` | Reference only (repos mirrored into `knowledge-memory/repo/`) |
-| `knowledge-memory/repo` | `knowledge-memory/rag` | Incremental indexing (LightRAG, RAG Anything) |
-| `session-memory` | `knowledge-memory/wiki` | **Not direct** — only via `longterm-memory` |
+| `project-memory` | `knowledge-memory/wiki-knowledge` | Reference only (repos mirrored into `knowledge-memory/repo-knowledge/`) |
+| `knowledge-memory/repo-knowledge` | `knowledge-memory/rag-knowledge` | Incremental indexing (LightRAG, RAG Anything) |
+| `session-memory` | `knowledge-memory/wiki-knowledge` | **Not direct** — only via `longterm-memory` |
 
 ---
 
-## 3. Folder Structure (complete)
-
-> **Update 2026-07-03 (v0.2 alignment):** The live instance settled on 8 top-level
-> layers (the 6 below + `sensitivity-layer/` + `telemetry/`), `knowledge-memory`
-> subfolders are named `repo-knowledge/ wiki-knowledge/ rag-knowledge/`, and
-> `agent-memory` follows the AgentOS block/profile structure
-> (see `brain-memory/agent-memory/index.md`). The tree below predates this
-> and will be revised in a full spec pass.
+## 3. Folder Structure (complete, v0.2 = live naming)
 
 ```
 brain-memory/
+├── config.yaml                  ← layer→path map, overlay, enforcement (see config.yaml.example)
+├── index.md                     ← layer overview table
+│
 ├── user-memory/
 │   ├── index.md
 │   ├── profile-xs.md / -s.md / -m.md / -l.md / -xl.md
@@ -67,13 +69,21 @@ brain-memory/
 │       ├── projects.md
 │       └── history.md
 │
-├── agent-memory/
+├── agent-memory/                ← "AgentOS": building blocks + profiles (all Markdown + YAML)
 │   ├── index.md
-│   ├── _all/                    ← applies to all agents
-│   │   ├── skills-xs.md … -xl.md
-│   │   └── mcps.md
-│   └── [AgentName]/             ← agent-specific
-│       └── [AgentName]-xs.md … -xl.md
+│   ├── _all/                    ← shared conventions, build guide, ID registry, validator, fail captures
+│   ├── agent-runtime/           ← runtime definitions (claude-code, hermes, …)
+│   ├── agent-llms/              ← model/provider definitions (roles, best_for)
+│   ├── agent-skills/            ← shared / distilled skills
+│   ├── agent-mcps/              ← MCP server definitions
+│   ├── agent-clis/              ← CLI tool definitions
+│   └── agent-profiles/
+│       └── [group]/[name]/      ← e.g. swift-agents/swift-metal/
+│           ├── CLAUDE.md        ← frontmatter composes blocks by ID + policy
+│           ├── core/            ← soul.md, instructions.md, rules.md, log.md
+│           ├── todos/           ← one .md per todo, YAML frontmatter
+│           ├── ideas/
+│           └── plans/
 │
 ├── session-memory/
 │   ├── index.md                 ← overview of all sessions
@@ -81,57 +91,47 @@ brain-memory/
 │       ├── raw.md               ← full session (Markdown export)
 │       ├── tree-index.json      ← PageIndex tree index
 │       ├── summary-xs.md … -xl.md
-│       ├── workedOn.md
-│       ├── usedTools.md
-│       ├── fails.md
-│       ├── learnings.md
-│       ├── learned.md
-│       ├── agent-o.md           ← optimization ideas for agent-o
-│       ├── skills.md            ← skill candidates
-│       └── human-ai.md          ← human-AI connection insights
+│       ├── workedOn.md · usedTools.md · fails.md
+│       ├── learnings.md · learned.md
+│       ├── agent-o.md · skills.md · human-ai.md
 │
 ├── project-memory/
 │   ├── index.md
 │   └── [ProjectName]/
-│       ├── goals.md
-│       ├── stack.md
-│       ├── conventions.md
-│       ├── todos.md
+│       ├── goals.md · stack.md · conventions.md · todos.md
 │       ├── adrs/
 │       └── [ProjectName]-xs.md … -xl.md
 │
 ├── knowledge-memory/
-│   ├── repo/
+│   ├── repo-knowledge/          ← source repos (Gortex-indexed)
 │   │   └── [RepoName]/
 │   │       ├── index.json       ← Gortex tree index
 │   │       ├── [RepoName]-xs.md … -xl.md
-│   │       └── raw/             ← original files (optional, for reference)
-│   ├── wiki/
-│   │   ├── coding/
-│   │   │   └── swift/
-│   │   │       ├── index.md
-│   │   │       ├── log.md
-│   │   │       ├── CLAUDE.md    ← schema for LLM-Wiki (Karpathy pattern)
-│   │   │       ├── summary-xs.md … -xl.md
-│   │   │       └── [topic].md
-│   │   └── food/
-│   └── rag/
-│       ├── coding/
-│       ├── swift/
-│       └── food/
+│   │       └── raw/             ← original files (optional)
+│   ├── wiki-knowledge/          ← LLM-maintained wiki (Karpathy pattern)
+│   │   └── [topic]/
+│   │       ├── index.md · log.md · CLAUDE.md
+│   │       └── summary-xs.md … -xl.md
+│   └── rag-knowledge/           ← RAG indices (wikirag, RAG Anything, …)
 │
 ├── longterm-memory/             ← promoted session insights
 │   ├── index.md
-│   ├── insights/
-│   │   ├── [Topic]/
-│   │   │   ├── insight-xs.md … -xl.md
-│   │   │   └── source-session.md  ← reference to original session
+│   ├── insights/[Topic]/
+│   │   ├── insight-xs.md … -xl.md
+│   │   └── source-session.md    ← reference to original session
 │   └── patterns/                ← recurring patterns, best practices
 │
-└── sensitivity-layer/           ← separate layer for sensitivity tags
-    ├── index.db                 ← SQLite: path → tag mapping (runtime enforcement)
-    └── config.yaml              ← feature flags, default policies
+├── sensitivity-layer/           ← cross-cutting: sensitivity tags + policy
+│   ├── index.md                 ← tag definitions + enforcement rules
+│   ├── config.yaml              ← policies, feature flags (see config.yaml.example)
+│   └── index.db                 ← SQLite path→tag map for runtime checks (planned)
+│
+└── telemetry/
+    └── token-usage.jsonl        ← per-call token/cost tracking (planned)
 ```
+
+The live instance is the source of truth for naming; the public skeleton mirrors
+it (see `docs/overlay-architecture.md` for the two-repo overlay contract).
 
 ---
 
@@ -205,19 +205,19 @@ brain-memory/
 
 | Tool | Layer | Input | Output | Trigger | Status |
 |------|-------|-------|--------|---------|--------|
-| **Gortex** | `knowledge-memory/repo/` | Code files (Swift, Python, TS, etc.) | MCP resources (live) + tree index (`index.json`) + **Markdown xs–XL (via exporter)** | Post-clone (immediate) + daily cron (incremental) + weekly/on-demand (full rebuild) | ✅ Clarified |
+| **Gortex** | `knowledge-memory/repo-knowledge/` | Code files (Swift, Python, TS, etc.) | MCP resources (live) + tree index (`index.json`) + **Markdown xs–XL (via exporter)** | Post-clone (immediate) + daily cron (incremental) + weekly/on-demand (full rebuild) | ✅ Clarified |
 | **PageIndex** | `session-memory/` → `longterm-memory/` | Raw sessions (Markdown) + wiki docs | Tree index (JSON) + summaries xs–XL + analytics files (workedOn, usedTools, fails, learnings, learned, agent-o, skills, human-ai) | Session end (auto) + on-demand | 🔄 Partially clarified |
-| **LLM-Wiki** (Karpathy pattern) | `knowledge-memory/wiki/` | Markdown wikis + sources | Persistent, cross-referenced wiki (LLM-maintained) | Ingest (human-driven) + lint (cron) | ⏳ Open |
-| **Understand-Anything** | `knowledge-memory/repo/` & `wiki/` | Code + docs | ADRs, summaries, dependency graphs | On-demand (agent/CI) + PR hook | ⏳ Open |
-| **LightRAG** | `knowledge-memory/rag/` | Wiki + repo docs | Graph-RAG index + query API | Incremental (watcher) + cron (full rebuild) | ⏳ Open |
-| **RAG Anything** | `knowledge-memory/rag/` | Multi-modal files (PDF, images, tables, code) | Multi-modal RAG index | On-demand + cron | ⏳ Open |
+| **LLM-Wiki** (Karpathy pattern) | `knowledge-memory/wiki-knowledge/` | Markdown wikis + sources | Persistent, cross-referenced wiki (LLM-maintained) | Ingest (human-driven) + lint (cron) | ⏳ Open |
+| **Understand-Anything** | `knowledge-memory/repo-knowledge/` & `wiki/` | Code + docs | ADRs, summaries, dependency graphs | On-demand (agent/CI) + PR hook | ⏳ Open |
+| **LightRAG** | `knowledge-memory/rag-knowledge/` | Wiki + repo docs | Graph-RAG index + query API | Incremental (watcher) + cron (full rebuild) | ⏳ Open |
+| **RAG Anything** | `knowledge-memory/rag-knowledge/` | Multi-modal files (PDF, images, tables, code) | Multi-modal RAG index | On-demand + cron | ⏳ Open |
 
 ### Gortex Details (decided)
 - **Scope:** all repos in `~/github/loadedrepos/`
 - **No `.git` required** — parses source files directly (Tree-Sitter)
 - **MCP live access** for agents (context-minimized: "give me `APIClient.request`" → snippet)
 - **Swift focus:** Tree-Sitter Swift + possibly SourceKit-LSP for type resolution
-- **Markdown exporter** (skill/CLI): `gortex-export --format=markdown --output=knowledge-memory/repo/<name>/`
+- **Markdown exporter** (skill/CLI): `gortex-export --format=markdown --output=knowledge-memory/repo-knowledge/<name>/`
 
 ### PageIndex Details (partially decided)
 - **Input:** sessions as **Markdown** (better readability, `#` headings for hierarchy)
@@ -333,7 +333,7 @@ source: "agent-export"
 mcp_servers:
   gortex:
     command: "gortex"
-    args: ["mcp", "--index-dir", "~/brain-memory/knowledge-memory/repo"]
+    args: ["mcp", "--index-dir", "~/brain-memory/knowledge-memory/repo-knowledge"]
     env:
       GORTEX_MODEL: "gpt-4o-mini"
 ```
@@ -373,3 +373,4 @@ mcp_servers:
 | Skills Location | Hybrid: core in shared lib, business logic per profile | No duplication, true isolation |
 | Backup | Restic + rclone (GDrive interim) → Syncthing (NAS) | 3-2-1, versioning, dedup, encryption |
 | Telemetry | Langfuse OTLP + JSONL Token-Tracking | Free-model observability, cost tracking, evaluation ready |
+| Layer Naming v0.2 (2026-07-03) | 8 top-level layers; `*-knowledge` subfolders; agent-memory = AgentOS blocks + profiles | Live instance is naming source of truth; public skeleton aligned (overlay-v1) |
