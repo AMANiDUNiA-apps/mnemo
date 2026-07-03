@@ -25,6 +25,26 @@ paths:
   telemetry: "telemetry"
   raw_input: "~/files/raw"
 
+# knowledge-memory subfolders (v0.2 naming, matches the live instance)
+knowledge_memory:
+  repo: "knowledge-memory/repo-knowledge"
+  wiki: "knowledge-memory/wiki-knowledge"
+  rag: "knowledge-memory/rag-knowledge"
+
+# agent-memory = AgentOS: building blocks + profiles (all Markdown + YAML frontmatter)
+agent_memory:
+  blocks: [agent-runtime, agent-llms, agent-skills, agent-mcps, agent-clis]
+  profiles: "agent-memory/agent-profiles"
+  shared: "agent-memory/_all"
+
+# Two-repo privacy overlay: live tree = public skeleton ∪ private content.
+# The storage location enforces the sensitivity tag. See docs/overlay-architecture.md
+overlay:
+  live_root: "~/brain-memory"
+  framework_repo: "github.com/<you>/mnemo"
+  content_repo: "github.com/<you>/<private-instance-repo>"
+  drift_check: "tools/overlay-status.sh"
+
 sensitivity:
   enabled: true
   config_path: "sensitivity-layer/config.yaml"

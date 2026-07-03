@@ -50,6 +50,13 @@
 
 ## 3. Folder Structure (complete)
 
+> **Update 2026-07-03 (v0.2 alignment):** The live instance settled on 8 top-level
+> layers (the 6 below + `sensitivity-layer/` + `telemetry/`), `knowledge-memory`
+> subfolders are named `repo-knowledge/ wiki-knowledge/ rag-knowledge/`, and
+> `agent-memory` follows the AgentOS block/profile structure
+> (see `brain-memory/agent-memory/index.md`). The tree below predates this
+> and will be revised in a full spec pass.
+
 ```
 brain-memory/
 ├── user-memory/
