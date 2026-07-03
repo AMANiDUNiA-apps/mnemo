@@ -13,3 +13,9 @@
 
 # macOS noise
 .DS_Store
+
+# Swift Package Manager / Xcode build artifacts
+.build/
+.swiftpm/
+DerivedData/
+*.xcuserdatad/

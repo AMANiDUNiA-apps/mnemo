@@ -12,6 +12,8 @@ struct MnemoApp: App {
         WindowGroup {
             ContentView()
                 .environment(appState)
+                // Typo-Standard (Jay, 3.7.): Serifen global, Mono nur für IDs/Code
+                .fontDesign(.serif)
         }
         .modelContainer(for: [AgentRecord.self, TaskRecord.self, MemoryDocument.self])
     }
