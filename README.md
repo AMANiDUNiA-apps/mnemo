@@ -126,6 +126,7 @@ The longer-term goal is a **native macOS app** (Vapor backend, SwiftData) that m
 |------|-------|---------|
 | **Gortex** | `knowledge-memory/repo/` | MCP server for code navigation, symbol search |
 | **PageIndex** | `session-memory/` | Vectorless RAG for sessions (tree-index + summaries) |
+| **[wikirag](tools/wikirag/)** ✅ | `knowledge-memory/wiki-knowledge/` | Composable per-wiki BM25 + optional Qdrant dense layer, RRF fusion — working |
 | **LLM-Wiki** | `knowledge-memory/wiki/` | Karpathy-pattern LLM-maintained wiki |
 | **Understand-Anything** | `knowledge-memory/repo/` & `wiki/` | Code/doc analysis → ADRs, summaries, dep graphs |
 | **LightRAG** | `knowledge-memory/rag/` | Graph-RAG pipeline (incremental + full rebuild) |

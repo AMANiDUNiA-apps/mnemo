@@ -1,0 +1,15 @@
+# Qdrant Docker Compose
+# Vector Similarity Search Engine — optional dense layer behind wikirag's BM25 (see qdrant_layer.py)
+# REST: http://localhost:6333/dashboard  ·  gRPC: 6334
+# ARM-native, runs fine without a GPU.
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6333:6333"
+      - "127.0.0.1:6334:6334"
+    volumes:
+      - ./data:/qdrant/storage
