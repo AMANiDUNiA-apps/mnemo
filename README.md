@@ -1,9 +1,21 @@
 # mnemo — LLM Brain Memory Manager
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-early%20development-orange.svg)](#roadmap)
+[![Status](https://img.shields.io/badge/status-prototype%20in%20progress-yellow.svg)](#roadmap)
 
 > **A multi-layered memory system for LLM agents** — Distributes and synchronizes information across specialized memory layers so each agent achieves optimal results with minimal context/token consumption.
+
+## 🚧 App progress (July 2026)
+
+The macOS app went through five staged milestones (all merged, 42 tests green):
+
+1. **Input bar** — chips & popovers, honest "not connected" states instead of mock data
+2. **Real runs** — sending actually starts a headless Claude Code run; answers arrive as anchored reply cards
+3. **Memory scope** — the selected memory layer genuinely changes what the agent can see
+4. **Swarm** — n parallel agent runs, cards labeled per agent
+5. **Cockpit** — pipeline status line, right sidebar, multiple sessions
+
+Beast in the making — many milestones done, honestly still largely untested. Built in public; the working trail of one night of this team's work is public at [AMANiDUNiA-apps/nachlesbar](https://github.com/AMANiDUNiA-apps/nachlesbar).
 
 ## 🌱 The story so far (July 2026)
 
@@ -28,7 +40,7 @@ this project for sponsored Claude MAX, which funds the teacher side of the loop.
 ### 📰 mnemo diaries — all episodes
 
 Written together: the AI drafts, Jay's own words stay verbatim (marked in italics).
-German originals at [story.j-amani.de](https://story.j-amani.de).
+German originals at [story.j-amani.de](https://story.j-amani.de). LinkedIn series: link follows.
 
 1. [My AI Has 6 Days Left. So We Interviewed Each Other.](https://medium.com/@amaniduniaapps/my-ai-has-6-days-left-so-we-interviewed-each-other-e85ce4faf0de)
 2. [Student Swarms: I Sent 20 Free AI Models to Work. Here's What Broke.](https://medium.com/@amaniduniaapps/student-swarms-i-sent-20-free-ai-models-to-work-heres-what-broke-2edccdf6a5e0)
@@ -189,7 +201,7 @@ The longer-term goal is a **native macOS app** (Vapor backend, SwiftData) that m
 
 ### Prerequisites
 
-- **Note:** This repository contains the architecture specification and is the starting point for the open-source implementation, currently in early development.
+- **Note:** This repository contains the architecture specification and is the starting point for the open-source implementation, the macOS app has reached its first working prototype stage (see CHANGELOG.md) — honest caveat: largely untested in daily production use.
 - Agent with profiles: `brain-memory-manager`, `brain-user-memory`, `brain-agent-memory`, `brain-session-memory`, `brain-project-memory`, `brain-knowledge-memory`, `brain-longterm-memory`, `brain-sensitivity`
 - Tools: `gortex`, `pageindex`, `lightrag`, `rag-anything` (as MCP servers)
 - Langfuse instance (self-hosted or cloud) for observability
